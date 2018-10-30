@@ -9,6 +9,7 @@ from django.http import HttpResponseRedirect
 from django.views import generic
 from django.utils import timezone
 
+
 def vote(request, question_id):
     question = get_object_or_404(Question, pk=question_id)
     try:
@@ -37,12 +38,14 @@ class IndexView(generic.ListView):
     def get_queryset(self):
         return Question.objects.filter(pub_date__lte=timezone.now()).order_by('-pub_date')[:5]
 
+
 class DetailView(generic.DeleteView):
     model = Question
     template_name = 'polls/detail.html'
 
     def get_queryset(self):
         return Question.objects.filter(pub_date__lte=timezone.now())
+
 
 class ResultsView(generic.DetailView):
     model = Question
